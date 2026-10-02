@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Career Copilot</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <section id="authScreen" class="auth-screen">
+      <div class="auth-card">
+        <div class="brand auth-brand">
+          <div class="brand-mark">AI</div>
+          <div>
+            <strong>Career Copilot</strong>
+            <span>Your saved career workspace</span>
+          </div>
+        </div>
+        <div class="auth-tabs">
+          <button class="auth-tab active" id="showLoginBtn">Login</button>
+          <button class="auth-tab" id="showRegisterBtn">Register</button>
+        </div>
+        <form id="loginForm" class="auth-form">
+          <input id="loginEmail" type="email" placeholder="Email" autocomplete="email" required />
+          <input id="loginPassword" type="password" placeholder="Password" autocomplete="current-password" required />
+          <button class="primary-action" type="submit">Login</button>
+        </form>
+        <form id="registerForm" class="auth-form hidden">
+          <input id="registerName" type="text" placeholder="Full name" autocomplete="name" required />
+          <input id="registerEmail" type="email" placeholder="Email" autocomplete="email" required />
+          <input id="registerPassword" type="password" placeholder="Password" autocomplete="new-password" required />
+          <button class="primary-action" type="submit">Create account</button>
+        </form>
+        <p id="authMessage" class="auth-message">Demo account: demo@careercopilot.ai / Demo@1234</p>
+      </div>
+    </section>
+
+    <div id="appShell" class="app-shell hidden">
+      <aside class="sidebar" aria-label="Primary navigation">
+        <div class="brand">
+          <div class="brand-mark">AI</div>
+          <div>
+            <strong>Career Copilot</strong>
+            <span>Demo workspace</span>
+          </div>
+        </div>
+
+        <nav class="nav-list">
+          <button class="nav-item active" data-view="dashboard">Dashboard</button>
+          <button class="nav-item" data-view="roadmap">Career GPS</button>
+          <button class="nav-item" data-view="interview">Mock Interview</button>
+          <button class="nav-item" data-view="jobs">Jobs</button>
+          <button class="nav-item" data-view="resume">Resume Lab</button>
+          <button class="nav-item" data-view="mentor">AI Mentor</button>
+        </nav>
+
+        <div class="profile-card">
+          <div class="avatar" id="profileAvatar">RK</div>
+          <div>
+            <strong id="profileName">Rahul Kumar</strong>
+            <span id="profileEmail">Final year CSE student</span>
+          </div>
+          <div class="mini-progress" aria-label="Profile completion">
+            <span style="width: 86%"></span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Interactive prototype</p>
+            <h1 id="pageTitle">Career Readiness Dashboard</h1>
+          </div>
+          <div class="role-control">
+            <label for="roleSelect">Target role</label>
+            <select id="roleSelect">
+              <option>Frontend Developer</option>
+              <option>Backend Developer</option>
+              <option>Full Stack Developer</option>
+              <option>Data Analyst</option>
+              <option>AI/ML Engineer</option>
+              <option>Software Developer</option>
+              <option>Data Scientist</option>
+              <option>AI Engineer</option>
+              <option>Cyber Security Analyst</option>
+              <option>Product Manager</option>
+            </select>
+            <button class="ghost-action" id="logoutBtn">Logout</button>
+          </div>
+        </header>
+
+        <section id="dashboard" class="view active-view">
+          <div class="hero-panel">
+            <div>
+              <p class="eyebrow">Success probability</p>
+              <div class="score-ring" id="successRing">78%</div>
+            </div>
+            <div class="hero-copy">
+              <h2 id="heroHeading">You are close to interview-ready.</h2>
+              <p id="heroText">
+                Your projects and GitHub profile are strong. Push DSA practice
+                and resume keywords this week to improve job matching.
+              </p>
+              <button class="primary-action" id="boostPlanBtn">Generate next action plan</button>
+            </div>
+          </div>
+
+          <div class="metric-grid">
+            <article class="metric-card">
+              <span>Skill readiness</span>
+              <strong id="skillMetric">74%</strong>
+              <div class="bar"><span id="skillBar"></span></div>
+            </article>
+            <article class="metric-card">
+              <span>Resume ATS</span>
+              <strong id="resumeMetric">69%</strong>
+              <div class="bar"><span id="resumeBar"></span></div>
+            </article>
+            <article class="metric-card">
+              <span>GitHub score</span>
+              <strong id="githubMetric">82%</strong>
+              <div class="bar"><span id="githubBar"></span></div>
+            </article>
+            <article class="metric-card">
+              <span>XP level</span>
+              <strong id="xpMetric">Level 7</strong>
+              <div class="badge-row">
+                <span>Resume Master</span>
+                <span>GitHub Pro</span>
+              </div>
+            </article>
+          </div>
+
+          <section class="workspace-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Skill Gap</h3>
+                <span id="roleChip">Software Developer</span>
+              </div>
+              <div id="skillList" class="skill-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Salary Outlook</h3>
+                <span>India INR</span>
+              </div>
+              <div class="salary-bars" id="salaryBars"></div>
+            </article>
+          </section>
+        </section>
+
+        <section id="roadmap" class="view">
+          <div class="gps-grid">
+            <article class="panel">
+              <div class="panel-head">
+                <h3>Your Skills</h3>
+                <span id="gpsRoleChip">Software Developer</span>
+              </div>
+              <textarea id="gpsSkillInput" rows="5" placeholder="Example: HTML, CSS, JavaScript, React, SQL, Git">HTML, CSS, JavaScript, React, SQL</textarea>
+              <div class="button-row">
+                <button class="primary-action" id="analyzeGpsBtn">Analyze skills</button>
+                <button class="ghost-action" id="sampleGpsBtn">Use sample</button>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>GPS Analysis</h3>
+              <div class="score-large" id="gpsReadiness">--</div>
+              <p id="gpsSummary" class="gps-summary">Enter your skills to generate a custom career route.</p>
+              <div class="gps-tags" id="gpsTags"></div>
+            </article>
+          </div>
+          <div class="timeline" id="roadmapTimeline"></div>
+        </section>
+
+        <section id="interview" class="view">
+          <div class="interview-console">
+            <article class="panel interview-setup">
+              <div class="panel-head">
+                <h3>Interview Setup</h3>
+                <span id="interviewRoleChip">Frontend Developer</span>
+              </div>
+              <div class="setup-grid">
+                <label>
+                  Round
+                  <select id="roundSelect">
+                    <option>HR</option>
+                    <option>Technical</option>
+                    <option>Coding</option>
+                  </select>
+                </label>
+                <label id="languageField" class="hidden">
+                  Language
+                  <select id="languageSelect">
+                    <option>Python</option>
+                    <option>JavaScript</option>
+                    <option>Java</option>
+                    <option>C++</option>
+                    <option>C</option>
+                  </select>
+                </label>
+              </div>
+              <div class="button-row">
+                <button class="primary-action" id="startInterviewBtn">Start interview</button>
+                <button class="ghost-action" id="finishInterviewBtn">Finish report</button>
+              </div>
+              <p id="interviewStatus" class="gps-summary">Questions will not repeat in this session or across your saved previous sessions.</p>
+            </article>
+
+            <article class="panel interview-card">
+              <div class="panel-head">
+                <h3>Live Question</h3>
+                <span id="questionMode">Not started</span>
+              </div>
+              <p class="question" id="questionText"></p>
+              <textarea id="answerInput" rows="7" placeholder="Type your answer here..."></textarea>
+              <div class="button-row">
+                <button class="primary-action" id="submitAnswerBtn">Evaluate answer</button>
+                <button class="ghost-action" id="voiceAnswerBtn">Voice answer</button>
+                <button class="ghost-action" id="nextQuestionBtn">Next question</button>
+              </div>
+            </article>
+            <article class="panel feedback-card">
+              <h3>AI Feedback</h3>
+              <div class="score-large" id="interviewScore">--</div>
+              <p id="interviewFeedback">Submit an answer to receive confidence, clarity, and improvement notes.</p>
+              <div id="scoreBreakdown" class="ats-breakdown"></div>
+            </article>
+            <article class="panel">
+              <h3>Question History</h3>
+              <div id="interviewHistoryList" class="interview-history"></div>
+            </article>
+            <article class="panel interview-report">
+              <h3>Performance Report</h3>
+              <div id="interviewReport" class="report-body">Finish an interview to generate a full report.</div>
+            </article>
+          </div>
+        </section>
+
+        <section id="jobs" class="view">
+          <div class="jobs-hero">
+            <div>
+              <p class="eyebrow">Role-aware recommendations</p>
+              <h2 id="jobsHeading">Best matches for Software Developer</h2>
+              <p id="jobsSummary">Jobs are ranked using your target role, Career GPS skills, and required skills.</p>
+            </div>
+            <div class="jobs-stats">
+              <div>
+                <strong id="jobCount">0</strong>
+                <span>openings</span>
+              </div>
+              <div>
+                <strong id="topMatch">0%</strong>
+                <span>top match</span>
+              </div>
+            </div>
+          </div>
+          <div class="job-toolbar">
+            <input id="jobSearch" type="search" placeholder="Search company, skill, or location" />
+            <select id="jobType">
+              <option value="all">All types</option>
+              <option value="Full-time">Full-time</option>
+              <option value="Internship">Internship</option>
+            </select>
+            <select id="jobLocation">
+              <option value="all">All locations</option>
+              <option value="Bengaluru">Bengaluru</option>
+              <option value="Hyderabad">Hyderabad</option>
+              <option value="Chennai">Chennai</option>
+              <option value="Pune">Pune</option>
+              <option value="Remote">Remote</option>
+            </select>
+            <select id="jobSort">
+              <option value="match">Sort by match</option>
+              <option value="salary">Sort by salary</option>
+              <option value="company">Sort by company</option>
+            </select>
+          </div>
+          <div id="jobList" class="job-list"></div>
+        </section>
+
+        <section id="resume" class="view">
+          <div class="resume-grid">
+            <article class="panel">
+              <h3>Resume Analyzer</h3>
+              <label class="upload-box" for="resumeFile">
+                <strong>Upload resume</strong>
+                <span>PDF, DOCX, TXT, or MD. Text files are read directly in this demo.</span>
+                <input id="resumeFile" type="file" accept=".pdf,.doc,.docx,.txt,.md,text/plain,application/pdf" />
+              </label>
+              <p id="uploadStatus" class="upload-status">No file uploaded yet. You can also paste resume text below.</p>
+              <textarea id="resumeInput" rows="10">Built React dashboard for placement analytics. Created API integrations and improved page speed.</textarea>
+              <div class="button-row">
+                <button class="primary-action" id="analyzeResumeBtn">Analyze ATS score</button>
+                <button class="ghost-action" id="clearResumeBtn">Clear</button>
+              </div>
+            </article>
+            <article class="panel">
+              <h3>Optimization Result</h3>
+              <div class="score-large" id="atsScore">69%</div>
+              <div id="atsBreakdown" class="ats-breakdown"></div>
+              <ul id="resumeTips" class="tip-list"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section id="mentor" class="view">
+          <div class="chat-shell">
+            <div id="chatLog" class="chat-log"></div>
+            <form id="chatForm" class="chat-form">
+              <input id="chatInput" placeholder="Ask about skills, projects, interviews, or jobs..." />
+              <button class="primary-action">Send</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
