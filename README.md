@@ -58,7 +58,7 @@ To run the standalone static prototype instead:
 
 ## Deploy to Vercel
 
-Push this repository to GitHub, then import it from the Vercel dashboard. Keep the **Root Directory** at the repository root (`./`); do not set it to `apps/web`. The root `vercel.json` builds the Vite frontend from `apps/web/`, routes `/api/...` requests to the FastAPI function at `api/index.py`, and allows backend requests up to 60 seconds.
+Push this repository to GitHub, then import it from the Vercel dashboard. Keep the **Root Directory** at the repository root (`./`); do not set it to `apps/web`. The root `vercel.json` builds the Vite frontend from `apps/web/`, routes `/api/...` requests to the FastAPI function at `api/index.py`, preserves the original API path for FastAPI, and allows backend requests up to 60 seconds.
 
 Add these environment variables in **Project Settings → Environment Variables** before deploying:
 

@@ -13,10 +13,14 @@
   "rewrites": [
     {
       "source": "/api/(.*)",
-      "destination": "/api/index"
+      "destination": "/api/index.py?realpath=/api/$1"
     },
     {
-      "source": "/((?!api/).*)",
+      "source": "/api",
+      "destination": "/api/index.py?realpath=/api"
+    },
+    {
+      "source": "/(.*)",
       "destination": "/index.html"
     }
   ]
