@@ -6,8 +6,9 @@ Premium full-stack SaaS-style career platform.
 
 - `apps/web/` - React, TypeScript, and Vite frontend used by the main app and deployment.
 - `apps/api/` - FastAPI backend and its tests.
-- `vercel.json` - Vercel frontend/backend service configuration and `/api/` routing.
-- `apps/requirements.txt` - Vercel Python dependencies, shared with `apps/api/requirements.txt`.
+- `api/index.py` - Vercel Python function entry point for the FastAPI application.
+- `requirements.txt` - Vercel Python dependencies, shared with `apps/api/requirements.txt`.
+- `vercel.json` - Vite build configuration, Python function settings, and `/api/` routing.
 - `apps/legacy-web/` - standalone static prototype, kept separate from the main frontend.
 - `start-server.ps1` - runs the static prototype at `http://127.0.0.1:3000`.
 - Root `package.json` - workspace commands for the frontend and backend.
@@ -57,7 +58,7 @@ To run the standalone static prototype instead:
 
 ## Deploy to Vercel
 
-Push this repository to GitHub, then import it from the Vercel dashboard. Keep the **Root Directory** at the repository root (`./`); do not set it to `apps/web`, because Vercel needs the root `vercel.json` to build both services. That config builds the Vite frontend from `apps/web/`, runs FastAPI from `apps/api/`, routes `/api/...` requests to the backend, and allows backend requests up to 60 seconds.
+Push this repository to GitHub, then import it from the Vercel dashboard. Keep the **Root Directory** at the repository root (`./`); do not set it to `apps/web`. The root `vercel.json` builds the Vite frontend from `apps/web/`, routes `/api/...` requests to the FastAPI function at `api/index.py`, and allows backend requests up to 60 seconds.
 
 Add these environment variables in **Project Settings → Environment Variables** before deploying:
 
