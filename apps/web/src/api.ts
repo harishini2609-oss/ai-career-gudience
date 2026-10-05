@@ -38,7 +38,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
     throw new Error("Cannot reach the API. Start the app with `npm run dev` and try again.");
   }
   if (!response.ok) {
-    const error = await response.json().catch(() => ({ detail: "Request failed" }));
+    const error = await response.json().catch(() => null);
     const detail = error?.detail;
     const message = Array.isArray(detail)
       ? detail.map((item: any) => {
@@ -46,7 +46,7 @@ async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
           return `${field || "request"}: ${item?.msg || "Invalid value"}`;
         }).join("; ")
       : typeof detail === "string" ? detail
-      : detail?.msg || "Request failed";
+      : detail?.msg || error?.message || error?.error?.message || `Request failed (${response.status})`;
     throw new Error(message);
   }
   return response.json() as Promise<T>;
