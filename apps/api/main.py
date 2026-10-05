@@ -233,16 +233,27 @@ class Store:
     def __init__(self) -> None:
         self.client = None
         self.db = None
+        mongo_error = None
+        is_vercel = os.getenv("VERCEL") == "1"
+        if is_vercel and (not JWT_SECRET or JWT_SECRET == "career-copilot-local-dev-secret"):
+            raise RuntimeError("Set JWT_SECRET to a unique random value for Vercel deployments.")
         if MONGO_URI and MongoClient:
             try:
                 self.client = MongoClient(MONGO_URI, serverSelectionTimeoutMS=1500)
                 self.client.admin.command("ping")
                 db_name = MONGO_URI.rsplit("/", 1)[-1].split("?", 1)[0]
                 self.db = self.client[db_name or "career_copilot"]
-            except Exception:
+            except Exception as exc:
                 self.client = None
                 self.db = None
-        if not DATA_FILE.exists():
+
+                mongo_error = exc
+        if is_vercel and self.db is None:
+            message = "Set MONGO_URI to a reachable MongoDB database for Vercel deployments."
+            if mongo_error:
+                raise RuntimeError(message) from mongo_error
+            raise RuntimeError(message)
+        if self.db is None and not DATA_FILE.exists():
             DATA_FILE.write_text(json.dumps({"users": [], "courses": []}, indent=2), encoding="utf-8")
         self.seed_courses()
 
